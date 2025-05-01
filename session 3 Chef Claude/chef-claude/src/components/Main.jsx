@@ -1,6 +1,7 @@
 export default function Main(){
 
     const ingredients = ['Chicken', 'Oregano', 'Tomatoes']
+    window.alert (ingredients);
 
     const ingredientListItems = ingredients.map((ingredient) => (
         <li key={ingredient}>{ingredient}</li>
