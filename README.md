@@ -185,7 +185,7 @@ const newIngredient = formData.get("ingredient")
 * It stores that value in a variable called newIngredient.
 
 
-✅ Props VS State
+✅ #)  Props VS State
 
 Props refers to property being passed into a component in order for it to work correctly, similarly to how a function receives parameters. So props contains information that has to be feeded to the function(component) to work.
 A component receiving props is not allowed to modify those props (props are immutable).
@@ -197,3 +197,62 @@ function addTwoNumbers(a, b) {
 }
 
 console.log(addTwoNumbers(1, 2))
+
+✅  view as a function of state: (In React, what you see on the screen (the View) is determined by the state. When the state changes, React re-runs the component and updates the screen automatically.)
+
+1) render- React runs your function and displays whatever gets returned. The function will only be run again if 1) it receives new props from above or 2) its internal state values change.
+function App() {
+  return <h1>Hello!</h1>
+}
+
+This function returns a JSX element (<h1>Hello!</h1>), and React displays it on the screen.
+
+But when does React re-run this function?
+React will only re-run (re-render) the function if:
+1. Props change (data passed from a parent).
+2. State changes (data managed within the component).
+React watches the component's props and state. If either changes, it runs the component function again to “see” what should now be shown.
+
+
+
+2) setState - changing a local, non-state variable does not cause react to re-render the component. Changing state with a built-in 'setState' function does. 
+Changing local variable ≠ Changing state
+
+let count = 0
+count = count + 1
+
+This is a normal variable. React does not know it changed.
+So it won’t re-render the component.
+
+Local variables change = nothing happens in React (Simply changing a local variable is not going to make React re-run our component)
+State changes using setState = React re-runs the function, and screen updates
+
+
+3) view = function(state)- Thus, when state changes and React re-runs(re-renders) your component something new gets returned and replaces what used to be on the page.
+
+Every time the state changes, React does this:
+1. Re-runs the component with the new state
+2. Returns new JSX
+3. Compares with the old JSX (diffing)
+4. Updates the screen (DOM) efficiently
+
+
+✅ How to make a local variable a state variable. 
+1st -> import use state from React library or import the entire React library
+Import { useState } from “react” or import React from “React”
+
+2nd -> 
+import React from "react"
+
+export default function App() {
+    const result = React.useState("Yes")
+    // const result = "Yes" (This is how to do it with local variable)
+    
+    return (
+        <main>
+            <h1 className="title">Is state important to know?</h1>
+            <button className="value">{result[0]}</button>
+        </main>
+    )
+}
+
