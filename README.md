@@ -237,7 +237,7 @@ Every time the state changes, React does this:
 4. Updates the screen (DOM) efficiently
 
 
-✅ How to make a local variable a state variable. 
+✅ How to make a local variable a state variable? 
 1st -> import use state from React library or import the entire React library
 Import { useState } from “react” or import React from “React”
 
@@ -255,4 +255,118 @@ export default function App() {
         </main>
     )
 }
+
+
+✅ Array destructuring for State:- 
+
+import React from "react"
+
+export default function App() {
+    let [isImportant, setIsImportant] = React.useState("Yes")
+    
+    function handleClick() {
+        setIsImportant("Heck yes")
+    }
+    
+    return (
+        <main>
+            <h1 className="title">Is state important to know?</h1>
+            <button onClick={handleClick} className="value">{isImportant}</button>
+        </main>
+    )
+}
+
+IsImportant is the variable that contains the value “Yes”. setIsImportant is the function which changes the value inside isImportant variable when a button or event is done. So setIsImportant is a function that is used to change the state.
+
+✅ Practicing State:-
+
+import React from "react"
+
+export default function App() {
+    /**
+     * Challenge: 
+     * Create state to track our count value (initial value is 0)
+     * Don't forget to replace the hard-coded "0" with your new state
+     */
+    const [counter, setCounter] = React.useState(0)
+    function handleMinus(){
+        setCounter(counter-1)
+    }
+    function handlePlus(){
+        setCounter(counter+1)
+    }
+    return (
+        <main className="container">
+            <h1>How many times will Bob say "state" in this section?</h1>
+            <div className="counter">
+                <button onClick={handleMinus}className="minus" aria-label="Decrease count">–</button>
+                <h2 className="count">{counter}</h2>
+                <button onClick={handlePlus} className="plus" aria-label="Increase count">+</button>
+            </div>
+        </main>
+    )
+}
+
+✅Updating State with a Callback function :-
+A callback function is just a function that you pass as an argument to another function, and then that outer function calls it at the right time.
+
+How React's setCount works
+There are two ways to use setCount:
+1. 🔹 Normal way (pass a value):
+
+setCount(count + 1)
+
+2. 🔸 Functional (callback) way — preferred when the new value depends on the previous value:
+
+setCount(function(prevCount) {
+  return prevCount + 1;
+})
+
+React’s state updates are asynchronous (they don't happen immediately), so if you try this:
+
+setCount(count + 1)
+setCount(count + 1)
+
+You might expect count to increase by 2, but it only increases by 1! Because both lines read the same value of count.
+
+👉 To fix that, React gives us the callback version:
+
+setCount(function(prevCount) {
+  return prevCount + 1
+})
+
+Or
+
+setCount( prevCount => prevCount + 1)
+
+
+FULL CODE:  import React from "react"
+
+export default function App() {
+    const [count, setCount] = React.useState(0)
+
+    function add() {
+        setCount(prevCount=> prevCount + 1)
+    }
+    
+    function subtract() {
+        setCount(prevCount => prevCount - 1)
+    }
+
+    return (
+        <main className="container">
+            <h1>How many times will Bob say "state" in this section?</h1>
+            <div className="counter">
+                <button className="minus" onClick={subtract} aria-label="Decrease count">–</button>
+                <h2 className="count">{count}</h2>
+                <button className="plus" onClick={add} aria-label="Increase count">+</button>
+            </div>
+        </main>
+    )
+}
+
+When you click the + button, add() is called:
+1. This passes a callback function to setCount
+2. React internally runs this function and passes the current value of count as prevCount
+3. Then it uses the return value (prevCount + 1) as the new value of count
 
