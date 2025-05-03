@@ -370,3 +370,39 @@ When you click the + button, add() is called:
 2. React internally runs this function and passes the current value of count as prevCount
 3. Then it uses the return value (prevCount + 1) as the new value of count
 
+✅ Understanding Arrow function (Toggling State):-
+
+function handleClick() {
+    setIsGoingOut(prev => !prev)
+}
+
+<button onClick={handleClick}>Click me</button>
+
+Is SAME as:  onClick={() => setIsGoingOut(prev => !prev)}
+
+1. () => ... means: “When the button is clicked, run this arrow function.”
+2. The arrow function doesn’t need any parameters, so the () is empty.
+
+
+import React from "react"
+
+export default function App() {
+    
+    const [isGoingOut, setIsGoingOut] = React.useState(false)
+    
+    function changeMind() {
+        setIsGoingOut(prev => !prev)
+    }
+
+    return (
+        <main>
+            <h1 className="title">Do I feel like going out tonight?</h1>
+            <button 
+                onClick={changeMind} 
+                className="value"
+                aria-label={`Current answer is ${isGoingOut ? "Yes" : "No"}. Click to change it.`}
+            >{isGoingOut ? "Yes" : "No"}</button>
+        </main>
+    )
+}
+
